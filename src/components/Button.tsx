@@ -1,3 +1,4 @@
+// debug-verbose
 import { GetProps, styled, Theme, themeable } from '@tamagui/core';
 import Box from './Box';
 import Text from './Text';
@@ -53,7 +54,7 @@ const Button = ButtonFrame.extractable(
   themeable(({ title, type = 'primary', ...props }: ButtonProps) => {
     return (
       <Theme name={`Button_${type}`}>
-        <ButtonFrame animation="linear" size="$md" {...props}>
+        <ButtonFrame size="$md" {...props}>
           <ButtonText fontSize="$md" fow="$bold">
             {title}
           </ButtonText>

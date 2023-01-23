@@ -1,29 +1,35 @@
 import { GetProps, styled, Text as TamaguiText } from '@tamagui/core';
 
-const Text = styled(TamaguiText, {
-  name: 'Text',
-  fontFamily: '$body',
-  color: '$color',
+const Text = styled(
+  TamaguiText,
+  {
+    name: 'Text',
+    fontFamily: '$body',
+    color: '$color',
 
-  variants: {
-    size: {
-      sm: {
-        fontSize: '$sm',
+    variants: {
+      size: {
+        sm: {
+          fontSize: '$sm',
+        },
+        md: {
+          fontSize: '$md',
+        },
+        xl: {
+          fontSize: '$xl',
+        },
       },
-      md: {
-        fontSize: '$md',
+      underlined: {
+        true: {
+          textDecorationLine: 'underline',
+        },
       },
-      xl: {
-        fontSize: '$xl',
-      },
-    },
-    underlined: {
-      true: {
-        textDecorationLine: 'underline',
-      },
-    },
-  } as const,
-});
+    } as const,
+  },
+  {
+    isText: true,
+  },
+);
 
 export type TextProps = GetProps<typeof Text>;
 

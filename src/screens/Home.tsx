@@ -1,5 +1,6 @@
+// debug-verbose
 import { SafeAreaView, ScrollView } from 'react-native';
-import { styled, useTheme } from '@tamagui/core';
+import { useTheme } from '@tamagui/core';
 import Box from '../components/Box';
 import Heading from '../components/Heading';
 import WeatherCard from '../components/WeatherCard';

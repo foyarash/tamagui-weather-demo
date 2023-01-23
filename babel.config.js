@@ -8,9 +8,10 @@ module.exports = function (api) {
       [
         '@tamagui/babel-plugin',
         {
-          components: [],
+          components: ['@tamagui/core'],
           config: './src/theme/tamagui.config.ts',
-          disableExtraction: process.env.NODE_ENV === 'development',
+          includeExtensions: ['.tsx', '.ts', '.js', '.jsx'],
+          disableExtraction: false,
         },
       ],
       // be sure to set TAMAGUI_TARGET
