@@ -1,4 +1,3 @@
-// debug-verbose
 import { GetProps, styled, Theme, themeable } from '@tamagui/core';
 import Box from './Box';
 import Text from './Text';
@@ -6,7 +5,7 @@ import Text from './Text';
 const ButtonFrame = styled(
   Box,
   {
-    name: 'ButtonFrame',
+    name: 'Button',
     fd: 'row',
     px: '$sm',
     bg: '$background',
@@ -31,7 +30,7 @@ const ButtonFrame = styled(
     pressStyle: {
       opacity: 0.8,
     },
-  } as const,
+  },
   {
     defaultVariants: {
       centered: true,
@@ -50,18 +49,16 @@ const ButtonText = styled(Text, {
   fow: '$bold',
 });
 
-const Button = ButtonFrame.extractable(
-  themeable(({ title, type = 'primary', ...props }: ButtonProps) => {
-    return (
-      <Theme name={`Button_${type}`}>
-        <ButtonFrame size="$md" {...props}>
-          <ButtonText fontSize="$md" fow="$bold">
-            {title}
-          </ButtonText>
-        </ButtonFrame>
-      </Theme>
-    );
-  }),
-);
+const Button = ButtonFrame.extractable(({ title, type = 'primary', ...props }: ButtonProps) => {
+  return (
+    <Theme name="primary">
+      <ButtonFrame size="$md" {...props}>
+        <ButtonText fontSize="$md" fow="$bold">
+          {title}
+        </ButtonText>
+      </ButtonFrame>
+    </Theme>
+  );
+});
 
 export default Button;

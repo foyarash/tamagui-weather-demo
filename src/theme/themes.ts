@@ -21,12 +21,12 @@ const dark_Card = createTheme({
   background: tokens.color.darkblue,
 });
 
-const light_Button_primary = createTheme({
+const primary_Button = createTheme({
   background: tokens.color.darkblue,
   color: tokens.color.white,
 });
 
-const dark_Button_primary = light_Button_primary;
+const dark_primary_Button = primary_Button;
 
 const light_Button_destructive = createTheme({
   background: tokens.color.darkred,
@@ -50,12 +50,12 @@ const themes = {
   light_Card,
   dark,
   dark_Card,
-  light_Button_primary,
-  dark_Button_primary,
-  light_Button_destructive,
-  dark_Button_destructive,
-  light_Button_unstyled,
-  dark_Button_unstyled,
+  primary_Button,
+  // dark_primary_Button,
+  // light_Button_destructive,
+  // dark_Button_destructive,
+  // light_Button_unstyled,
+  // dark_Button_unstyled,
 };
 
 export default themes;

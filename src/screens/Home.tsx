@@ -1,4 +1,3 @@
-// debug-verbose
 import { SafeAreaView, ScrollView } from 'react-native';
 import { useTheme } from '@tamagui/core';
 import Box from '../components/Box';
@@ -26,7 +25,14 @@ const Home = ({ onSwitchTheme }: Props) => {
             <WeatherCard city="Paris" latitude={48.85} longitude={2.35} />
             {/* <WeatherCard city="Lyon" latitude={45.75} longitude={4.85} /> */}
             {/* <WeatherCard city="Berlin" latitude={52.52} longitude={13.41} /> */}
-            <Button title="Hello" type="primary" centered />
+            <Button
+              title="Hello"
+              type="primary"
+              centered
+              onPress={() => {
+                console.log('press');
+              }}
+            />
           </Box>
         </ScrollView>
       </Box>

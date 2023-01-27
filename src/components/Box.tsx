@@ -1,7 +1,11 @@
-import { styled, Stack } from '@tamagui/core';
-import { StyleSheet } from 'react-native';
+import { styled, Stack, setupReactNative, GetProps, getTokens } from '@tamagui/core';
+import { forwardRef, useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const Box = styled(Stack, {
+setupReactNative({ View });
+
+const BoxFrame = styled(Stack, {
   variants: {
     shadow: {
       sm: {
@@ -91,5 +95,49 @@ const Box = styled(Stack, {
     },
   } as const,
 });
+
+export type BoxProps = GetProps<typeof BoxFrame> & {
+  safeAreaTop?: boolean;
+  safeAreaBottom?: boolean;
+  safeAreaMinPaddingTop?: BoxProps['pt'];
+  safeAreaMinPaddingBottom?: BoxProps['pb'];
+};
+
+const Box = BoxFrame.extractable(
+  forwardRef<View, BoxProps>(
+    (
+      {
+        safeAreaBottom,
+        safeAreaTop,
+        safeAreaMinPaddingTop = '$md',
+        safeAreaMinPaddingBottom = '$md',
+        ...props
+      }: BoxProps,
+      ref,
+    ) => {
+      const { top, bottom } = useSafeAreaInsets();
+      const safeAreaTopMinPaddingComputed = useMemo(() => {
+        const tokens = getTokens(true).space;
+
+        return tokens[safeAreaMinPaddingTop as keyof typeof tokens]?.val ?? safeAreaMinPaddingTop;
+      }, [safeAreaMinPaddingTop]);
+
+      const safeAreaBottomMinPaddingComputed = useMemo(() => {
+        const tokens = getTokens(true).space;
+
+        return tokens[safeAreaMinPaddingBottom as keyof typeof tokens]?.val ?? safeAreaMinPaddingBottom;
+      }, [safeAreaMinPaddingBottom]);
+
+      return (
+        <BoxFrame
+          {...props}
+          ref={ref}
+          pt={safeAreaTop ? Math.max(top, safeAreaTopMinPaddingComputed) : props.pt}
+          pb={safeAreaBottom ? Math.max(bottom, safeAreaBottomMinPaddingComputed) : props.pb}
+        />
+      );
+    },
+  ),
+);
 
 export default Box;

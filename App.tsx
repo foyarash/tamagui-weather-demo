@@ -1,4 +1,5 @@
 import { TamaguiProvider } from '@tamagui/core';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   useFonts,
   Montserrat_100Thin,
@@ -52,12 +53,14 @@ export default function App() {
   }
 
   return (
-    <TamaguiProvider config={config} defaultTheme={theme}>
-      <Home
-        onSwitchTheme={() => {
-          setTheme(theme === 'dark' ? 'light' : 'dark');
-        }}
-      />
-    </TamaguiProvider>
+    <SafeAreaProvider>
+      <TamaguiProvider config={config} defaultTheme={theme}>
+        <Home
+          onSwitchTheme={() => {
+            setTheme(theme === 'dark' ? 'light' : 'dark');
+          }}
+        />
+      </TamaguiProvider>
+    </SafeAreaProvider>
   );
 }
