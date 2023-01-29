@@ -1,4 +1,4 @@
-import { styled, Stack, setupReactNative, GetProps, getTokens } from '@tamagui/core';
+import { styled, Stack, setupReactNative, GetProps, getTokens, themeable } from '@tamagui/core';
 import { forwardRef, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -104,39 +104,41 @@ export type BoxProps = GetProps<typeof BoxFrame> & {
 };
 
 const Box = BoxFrame.extractable(
-  forwardRef<View, BoxProps>(
-    (
-      {
-        safeAreaBottom,
-        safeAreaTop,
-        safeAreaMinPaddingTop = '$md',
-        safeAreaMinPaddingBottom = '$md',
-        ...props
-      }: BoxProps,
-      ref,
-    ) => {
-      const { top, bottom } = useSafeAreaInsets();
-      const safeAreaTopMinPaddingComputed = useMemo(() => {
-        const tokens = getTokens(true).space;
+  themeable(
+    forwardRef<View, BoxProps>(
+      (
+        {
+          safeAreaBottom,
+          safeAreaTop,
+          safeAreaMinPaddingTop = '$md',
+          safeAreaMinPaddingBottom = '$md',
+          ...props
+        }: BoxProps,
+        ref,
+      ) => {
+        const { top, bottom } = useSafeAreaInsets();
+        const safeAreaTopMinPaddingComputed = useMemo(() => {
+          const tokens = getTokens(true).space;
 
-        return tokens[safeAreaMinPaddingTop as keyof typeof tokens]?.val ?? safeAreaMinPaddingTop;
-      }, [safeAreaMinPaddingTop]);
+          return tokens[safeAreaMinPaddingTop as keyof typeof tokens]?.val ?? safeAreaMinPaddingTop;
+        }, [safeAreaMinPaddingTop]);
 
-      const safeAreaBottomMinPaddingComputed = useMemo(() => {
-        const tokens = getTokens(true).space;
+        const safeAreaBottomMinPaddingComputed = useMemo(() => {
+          const tokens = getTokens(true).space;
 
-        return tokens[safeAreaMinPaddingBottom as keyof typeof tokens]?.val ?? safeAreaMinPaddingBottom;
-      }, [safeAreaMinPaddingBottom]);
+          return tokens[safeAreaMinPaddingBottom as keyof typeof tokens]?.val ?? safeAreaMinPaddingBottom;
+        }, [safeAreaMinPaddingBottom]);
 
-      return (
-        <BoxFrame
-          {...props}
-          ref={ref}
-          pt={safeAreaTop ? Math.max(top, safeAreaTopMinPaddingComputed) : props.pt}
-          pb={safeAreaBottom ? Math.max(bottom, safeAreaBottomMinPaddingComputed) : props.pb}
-        />
-      );
-    },
+        return (
+          <BoxFrame
+            {...props}
+            ref={ref}
+            pt={safeAreaTop ? Math.max(top, safeAreaTopMinPaddingComputed) : props.pt}
+            pb={safeAreaBottom ? Math.max(bottom, safeAreaBottomMinPaddingComputed) : props.pb}
+          />
+        );
+      },
+    ),
   ),
 );
 

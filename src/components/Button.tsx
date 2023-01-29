@@ -1,4 +1,4 @@
-import { GetProps, styled, Theme, themeable } from '@tamagui/core';
+import { GetProps, styled } from '@tamagui/core';
 import Box from './Box';
 import Text from './Text';
 
@@ -51,13 +51,11 @@ const ButtonText = styled(Text, {
 
 const Button = ButtonFrame.extractable(({ title, type = 'primary', ...props }: ButtonProps) => {
   return (
-    <Theme name="primary">
-      <ButtonFrame size="$md" {...props}>
-        <ButtonText fontSize="$md" fow="$bold">
-          {title}
-        </ButtonText>
-      </ButtonFrame>
-    </Theme>
+    <ButtonFrame theme="primary_Button" size="$md" {...props}>
+      <ButtonText fontSize="$md" fow="$bold">
+        {title}
+      </ButtonText>
+    </ButtonFrame>
   );
 });
 
